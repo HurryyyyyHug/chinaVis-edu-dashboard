@@ -1,16 +1,103 @@
-# React + Vite
+# ChinaVis Edu Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+时序多变量教育数据可视分析平台（NorthClass Learning Behavior Visual Analysis Dashboard）。
 
-Currently, two official plugins are available:
+## 项目概览
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 目标：从提交行为中识别学习效率、知识结构和群体差异
+- 数据规模：1364 学习者、44 题、232818 日志、148 天
+- 交互筛选：专业 / 性别 / 知识领域 / 班级
+- 图表联动：筛选后 7 图同步刷新
 
-## React Compiler
+## 可视分析方法与模型
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **统计聚合模型**
+   - 按周汇总 `correct / partial / error`
+   - 计算正确率、非错误率、活跃周占比等指标
 
-## Expanding the ESLint configuration
+2. **雷达画像模型（6 维）**
+   - 正确率
+   - 非错误率
+   - 提交强度
+   - 知识覆盖
+   - 活跃持续
+   - 后期提升（momentum）
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3. **四象限效率模型**
+   - x 轴：提交总量
+   - y 轴：正确率
+   - 使用中位数阈值划分：高量高准 / 高量低准 / 低量高准 / 低量低准
+
+4. **知识相关模型**
+   - 基于知识点周序列计算皮尔逊相关
+   - 相关阈值 `r > 0.2` 建立关联边
+
+5. **流向模型**
+   - 专业 → 班级提交流量映射（Sankey）
+
+## 图表体系
+
+- 趋势面积图：`correct / partial / error` 时序变化
+- 雷达图：当前筛选 vs 基准画像对比
+- 热力图：周次 × 知识点提交强度
+- 效率散点图：四象限分层与异常群体识别
+- 堆叠柱状图：知识点提交结构（正确 / 部分正确 / 错误）
+- 桑基图：专业到班级流向
+- 和弦图：知识点相关性网络（自定义 SVG）
+
+## PPT / 答辩建议结构（问题→数据→方法→可视化→洞察→价值）
+
+1. **开场（1 页）**
+   - 项目名称与目标
+   - 一句话目标
+
+2. **数据与任务定义（1 页）**
+   - 数据规模
+   - 分析任务：趋势监测、群体画像、效率分层、知识点关联、流向分析
+
+3. **核心算法/模型（2~3 页）**
+   - 统计聚合模型
+   - 雷达画像模型
+   - 四象限效率模型
+   - 知识相关模型
+   - 流向模型
+
+4. **可视化图表体系（2 页）**
+   - 逐图说明“图展示什么 + 支持什么决策”
+
+5. **交互与联动机制（1 页）**
+   - 四个筛选器
+   - 筛选后 7 图联动刷新
+
+6. **关键发现（1~2 页）**
+   - 选 3~5 条最强结论
+   - 每条结论绑定对应图表
+
+7. **应用价值与落地（1 页）**
+   - 教学侧：风险识别与节奏优化
+   - 管理侧：资源配置与预警
+
+8. **结尾（1 页）**
+   - 总结：把时序行为数据转化为可解释教学决策
+   - 展望：预测预警、个性化推荐
+
+### 讲解节奏建议
+
+- 每页只讲：一个问题 + 一张图 + 一个结论
+- 算法页重点讲“为什么这样算”
+- 图表页重点讲“这图支持什么决策”
+- 叙事顺序：先全局趋势，再分层关系，最后应用价值
+
+## 本地运行
+
+```bash
+npm ci
+npm run dev
+```
+
+## 校验命令
+
+```bash
+npm run lint
+npm run build
+```
