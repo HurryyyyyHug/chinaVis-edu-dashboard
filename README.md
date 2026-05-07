@@ -1,6 +1,6 @@
 # ChinaVis Edu Dashboard
 
-时序多变量教育数据可视分析平台（NorthClass Learning Behavior Visual Analysis Dashboard）。
+时序多变量教育数据可视分析平台（英文展示名：NorthClass Learning Behavior Visual Analysis Dashboard）。
 
 ## 项目概览
 
@@ -83,7 +83,7 @@
 
 ### 讲解节奏建议
 
-- 每页只讲：一个问题、一张图、一个结论
+- 每页只讲：一个问题 / 一张图 / 一个结论
 - 算法页重点讲“为什么这样算”
 - 图表页重点讲“这图支持什么决策”
 - 叙事顺序：先全局趋势，再分层关系，最后应用价值
